@@ -47,8 +47,6 @@ private:
 
     NextTask getNextTask();
 
-    static void run(void* context);
-
     void processTasks();
 
     void notifyWake();

@@ -8,7 +8,11 @@ TaskQueueSTD::TaskQueueSTD(std::string_view queueName)
     , flag_notify_(/*manual_reset=*/false, /*initially_signaled=*/false)
     , name_(queueName) {
 
-    thread_ = std::thread(&TaskQueueSTD::run, this);
+    thread_ = std::thread([this]{
+        CurrentTaskQueueSetter setCurrent(this);
+        this->processTasks();
+    });
+
 
     started_.wait(vi::Event::kForever);
 }
@@ -101,13 +105,6 @@ TaskQueueSTD::NextTask TaskQueueSTD::getNextTask() {
     }
 
     return result;
-}
-
-// static
-void TaskQueueSTD::run(void* context) {
-    TaskQueueSTD* me = static_cast<TaskQueueSTD*>(context);
-    CurrentTaskQueueSetter setCurrent(me);
-    me->processTasks();
 }
 
 void TaskQueueSTD::processTasks() {
