@@ -41,29 +41,29 @@ static void gettimeofday(struct timeval *tv, void *ignore)
 #endif
 
 timespec getTimespec(const int milliseconds_from_now) {
-  timespec ts;
+    timespec ts;
 
-  // Get the current time.
+    // Get the current time.
 #if USE_CLOCK_GETTIME
-  clock_gettime(CLOCK_MONOTONIC, &ts);
+    clock_gettime(CLOCK_MONOTONIC, &ts);
 #else
-  timeval tv;
-  gettimeofday(&tv, nullptr);
-  ts.tv_sec = tv.tv_sec;
-  ts.tv_nsec = tv.tv_usec * 1000;
+    timeval tv;
+    gettimeofday(&tv, nullptr);
+    ts.tv_sec = tv.tv_sec;
+    ts.tv_nsec = tv.tv_usec * 1000;
 #endif
 
-  // Add the specified number of milliseconds to it.
-  ts.tv_sec += (milliseconds_from_now / 1000);
-  ts.tv_nsec += (milliseconds_from_now % 1000) * 1000000;
+    // Add the specified number of milliseconds to it.
+    ts.tv_sec += (milliseconds_from_now / 1000);
+    ts.tv_nsec += (milliseconds_from_now % 1000) * 1000000;
 
-  // Normalize.
-  if (ts.tv_nsec >= 1000000000) {
-    ts.tv_sec++;
-    ts.tv_nsec -= 1000000000;
-  }
+    // Normalize.
+    if (ts.tv_nsec >= 1000000000) {
+        ts.tv_sec++;
+        ts.tv_nsec -= 1000000000;
+    }
 
-  return ts;
+    return ts;
 }
 
 }  // namespace
