@@ -11,12 +11,12 @@ int main()
 
     std::unique_ptr<vi::TaskQueue> tq = vi::TaskQueue::create("test");
     vi::Event ev;
-    tq->postTask(vi::ToQueuedTask([&ev](){
+    tq->postTask([&ev](){
         for (int i = 0; i < 1000; ++i) {
             cout << "Hello World..." << endl;
         }
         ev.set();
-    }));
+    });
     ev.wait(-1);
     return 0;
 }
