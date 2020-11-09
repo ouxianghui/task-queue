@@ -1,5 +1,9 @@
 # task-queue
 
+Basic usage
+----
+```C++
+
 #include <iostream>
 #include "task_queue.h"
 #include <memory>
@@ -40,3 +44,4 @@ int main()
 
     return 0;
 }
+```
