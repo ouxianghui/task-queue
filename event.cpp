@@ -40,7 +40,7 @@ static void gettimeofday(struct timeval *tv, void *ignore)
 }
 #endif
 
-timespec GetTimespec(const int milliseconds_from_now) {
+timespec getTimespec(const int milliseconds_from_now) {
   timespec ts;
 
   // Get the current time.
@@ -72,18 +72,17 @@ bool Event::wait(const int give_up_after_ms, const int warn_after_ms) {
     // Instant when we'll log a warning message (because we've been waiting so
     // long it might be a bug), but not yet give up waiting. nullopt if we
     // shouldn't log a warning.
-    const std::optional<timespec> warn_ts =
-            warn_after_ms == kForever ||
+    const std::optional<timespec> warn_ts = warn_after_ms == kForever ||
             (give_up_after_ms != kForever && warn_after_ms > give_up_after_ms)
             ? std::nullopt
-            : std::make_optional(GetTimespec(warn_after_ms));
+            : std::make_optional(getTimespec(warn_after_ms));
 
     // Instant when we'll stop waiting and return an error. nullopt if we should
     // never give up.
     const std::optional<timespec> give_up_ts =
             give_up_after_ms == kForever
             ? std::nullopt
-            : std::make_optional(GetTimespec(give_up_after_ms));
+            : std::make_optional(getTimespec(give_up_after_ms));
 
     //ScopedYieldPolicy::YieldExecution();
 

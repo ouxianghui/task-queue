@@ -18,5 +18,14 @@ int main()
         ev.set();
     });
     ev.wait(-1);
+
+    tq->postDelayedTask([&ev](){
+        for (int i = 0; i < 1000; ++i) {
+            cout << "Hello World..." << endl;
+        }
+        ev.set();
+    }, 1000*10);
+    ev.wait(-1);
+
     return 0;
 }
