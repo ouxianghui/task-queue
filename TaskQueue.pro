@@ -8,6 +8,7 @@ SOURCES += \
         main.cpp \
         task_queue.cpp \
         task_queue_base.cpp \
+        task_queue_manager.cpp \
         task_queue_std.cpp
 
 HEADERS += \
@@ -15,4 +16,5 @@ HEADERS += \
     queued_task.h \
     task_queue.h \
     task_queue_base.h \
+    task_queue_manager.h \
     task_queue_std.h
