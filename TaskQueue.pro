@@ -5,7 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         event.cpp \
-        main.cpp \
+        example.cpp \
         task_queue.cpp \
         task_queue_base.cpp \
         task_queue_manager.cpp \
