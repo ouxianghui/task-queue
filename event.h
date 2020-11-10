@@ -11,8 +11,6 @@ public:
 
     Event();
     Event(bool manual_reset, bool initially_signaled);
-    Event(const Event&) = delete;
-    Event& operator=(const Event&) = delete;
     ~Event();
 
     void set();
@@ -32,6 +30,10 @@ public:
     bool wait(int give_up_after_ms) {
         return wait(give_up_after_ms, give_up_after_ms == kForever ? 3000 : kForever);
     }
+
+private:
+    Event(const Event&) = delete;
+    Event& operator=(const Event&) = delete;
 
 private:
     std::mutex event_mutex_;
