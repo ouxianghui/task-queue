@@ -27,14 +27,15 @@ int main()
         threads[n] = std::thread([&ev]{
             for (int i = 0; i < 10000; ++i) {
                 TQ("worker1")->postTask([&ev, i](){
-                    cout << "exec task in 'core' queue: " << ", i = " << i << endl;
-                });
-                TQ("worker2")->postTask([&ev, i](){
-                    cout << "exec task in 'worker' queue: " << ", i = " << i << endl;
+                    cout << "exec task in 'worker1' queue: " << ", i = " << i << endl;
                 });
 
+                TQ("worker1")->postDelayedTask([&ev, i](){
+                    cout << "exec delayed task in 'worker1' queue: " << ", i = " << i << endl;
+                }, 1000);
+
                 TQ("worker2")->postDelayedTask([&ev, i](){
-                    cout << "exec delayed task in 'core' queue: " << ", i = " << i << endl;
+                    cout << "exec delayed task in 'worker2' queue: " << ", i = " << i << endl;
                     if (i == 9999) {
                         ev.set();
                     }
