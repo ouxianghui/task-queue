@@ -30,6 +30,8 @@ private:
 private:
     TaskQueueManager();
 
+    TaskQueueManager(TaskQueueManager&&) = delete;
+
     TaskQueueManager(const TaskQueueManager&) = delete;
 
     TaskQueueManager& operator=(const TaskQueueManager&) = delete;
@@ -41,8 +43,8 @@ private:
 
 };
 
+}
+
 #define TQMgr vi::TaskQueueManager::instance()
 
-#define TQ TQMgr->queue
-
-}
+#define TQ(name) TQMgr->queue(name)
