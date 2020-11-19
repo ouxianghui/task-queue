@@ -1,4 +1,5 @@
 #include "task_queue_std.h"
+#include <assert.h>
 
 namespace vi {
 

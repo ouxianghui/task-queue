@@ -1,6 +1,12 @@
 #include "event.h"
 #include <optional>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <sys/timeb.h>
+#else
 #include <sys/time.h>
+#endif
 
 namespace vi {
 
